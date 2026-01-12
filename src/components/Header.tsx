@@ -28,17 +28,13 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
     { label: content.nav.contact, id: 'footer' },
   ];
 
-  const handleLangToggle = () => {
-    setLang(lang === 'FR' ? 'AR' : 'FR');
-  };
-
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm border-b border-taupe/20 z-50 transition-all duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
 
-        {/* Logo & Hamburger - Always order-1 (left in LTR, right in RTL via dir attribute) */}
+        {/* Logo & Hamburger */}
         <div className="flex items-center gap-4 order-1">
           <img
             src="/hero_symbol_black.png"
@@ -46,16 +42,17 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
             className="h-10 w-auto object-contain drop-shadow-sm"
           />
 
-          <div className={`hidden sm:block font-serif ${isArabic ? 'text-right' : 'text-left'}`}>
+          {/* Name & Subtitle next to logo */}
+          <div className={`hidden sm:flex flex-col font-serif ${isArabic ? 'text-right' : 'text-left'}`}>
             <h1 className="text-lg font-bold uppercase tracking-widest text-charcoal leading-tight">
-              BLISSFUL & BEAUTIFUL
+              {lang === 'AR' ? content.heroTitleAr : lang === 'FR' ? content.heroTitleFr : content.heroTitleEn}
             </h1>
             <span className="block text-xs font-normal text-taupe uppercase tracking-wider">
-              Institut de beauté
+              {lang === 'AR' ? content.heroSubtitleAr : lang === 'FR' ? content.heroSubtitleFr : content.heroSubtitleEn}
             </span>
           </div>
 
-          {/* Hamburger Menu Button */}
+          {/* Hamburger Menu */}
           <button
             onClick={toggleMenu}
             className="lg:hidden text-2xl text-taupe hover:text-taupe-dark transition focus:outline-none"
@@ -65,15 +62,10 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
           </button>
         </div>
 
-
-        {/* Desktop Navigation - Always order-2 (center) */}
+        {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wider uppercase text-gray-600 order-2">
           {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className="hover:text-taupe transition duration-300"
-            >
+            <a key={link.id} href={`#${link.id}`} className="hover:text-taupe transition duration-300">
               {link.label}
             </a>
           ))}
@@ -85,17 +77,25 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
           </a>
         </nav>
 
-        {/* Language & Social Links - Always order-3 (right in LTR, left in RTL via dir attribute) */}
+        {/* Language & Social Links */}
         <div className={`flex items-center gap-4 order-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
-          {/* Language Toggle */}
-          <button
-            onClick={handleLangToggle}
-            className="border border-gra-300 px-2 py-1 text-sm font-bold text-charcoal hover:bg-cream-100 hover:text-taupe transition duration-300 hidden md:block"
-          >
-            {isArabic ? 'FR' : 'AR'}
-          </button>
+          {/* Desktop Language Buttons */}
+          <div className="hidden md:flex gap-2">
+            {(['AR', 'FR', 'EN'] as Language[]).map((l) => (
+              <button
+                key={l}
+                onClick={() => setLang(l)}
+                className={`px-2 py-1 text-sm font-bold border rounded transition ${lang === l
+                  ? 'bg-taupe text-white border-taupe'
+                  : 'bg-white text-charcoal border-gra-300 hover:bg-cream-100 hover:text-taupe'
+                  }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
 
-
+          {/* Social Icons */}
           <div className="hidden md:flex items-center gap-6 text-xl text-gray-500">
             {SOCIAL_LINKS.map((link) => {
               const Icon = socialIcons[link.icon];
@@ -115,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -126,48 +126,50 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
             className="lg:hidden bg-white border-t border-taupe/10 overflow-hidden"
           >
             <div className="flex flex-col items-center py-8 space-y-6">
-              {/* Mobile Language Toggle */}
-              <button
-                onClick={handleLangToggle}
-                className="mb-4 border border-taupe/30 px-4 py-1 text-sm font-bold text-charcoal hover:bg-cream-100 transition duration-300"
-              >
-                {isArabic ? 'Switch to French' : 'Switch to Arabic'}
-              </button>
+              {/* Mobile Language Buttons */}
+              <div className="flex gap-2 mb-4">
+                {(['AR', 'FR', 'EN'] as Language[]).map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => {
+                      setLang(l);
+                      setIsMenuOpen(false); // close menu on selection
+                    }}
+                    className={`px-3 py-1 text-sm font-bold border rounded transition ${lang === l
+                      ? 'bg-taupe text-white border-taupe'
+                      : 'bg-white text-charcoal border-taupe/30 hover:bg-cream-100 hover:text-taupe'
+                      }`}
+                  >
+                    {l}
+                  </button>
+                ))}
+              </div>
 
+              {/* Mobile Nav Links */}
               {navLinks.map((link) => (
                 <a
                   key={link.id}
                   href={`#${link.id}`}
                   onClick={(e) => {
                     e.preventDefault();
-                    // Close menu FIRST for stable scroll target
                     setIsMenuOpen(false);
-
                     const target = document.getElementById(link.id);
-                    if (target) {
-                      // Slight delay to allow menu animation to start/layout to settle
-                      setTimeout(() => {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      }, 100);
-                    }
+                    if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
                   }}
                   className="text-lg font-medium tracking-wide text-charcoal hover:text-taupe transition duration-300 uppercase"
                 >
                   {link.label}
                 </a>
               ))}
+
+              {/* Mobile CTA Button */}
               <a
                 href="#locations"
                 onClick={(e) => {
                   e.preventDefault();
                   setIsMenuOpen(false);
-
                   const target = document.getElementById('locations');
-                  if (target) {
-                    setTimeout(() => {
-                      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }, 100);
-                  }
+                  if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
                 }}
                 className="btn-shimmer text-white bg-taupe px-8 py-3 text-lg hover:bg-taupe-dark transition duration-300 rounded-sm shadow-sm relative overflow-hidden"
               >

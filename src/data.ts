@@ -14,7 +14,7 @@ interface PricingItem {
 
 interface PricingSubsection {
   category?: string; // Level 2 Header
-  title?: string;    // Level 3 Header (or Level 2 if category missing)
+  title?: string;    // Level 3 Header (or Level 2 if category missing)       
   items: PricingItem[];
   variant?: 'default' | 'highlight'; // For grey background sections
 }
@@ -443,6 +443,8 @@ const sharedPricing: PricingSection[] = [
 // --- (FR) ---
 const FR_CONTENT: Translation = {
   lang: 'FR',
+  heroTitleFr: 'BLISSFUL & BEAUTIFUL',
+  heroSubtitleFr: 'Institut de beauté',
   nav: {
     home: 'Accueil',
     philosophy: 'Philosophie',
@@ -546,9 +548,120 @@ const FR_CONTENT: Translation = {
   },
 };
 
+// ---(EG) ---
+export const EN_CONTENT: Translation = {
+  lang: 'EN',
+  heroTitleEn: 'BLISSFUL & BEAUTIFUL',
+  heroSubtitleEn: 'Beauty Institute',
+  nav: {
+    home: 'Home',
+    philosophy: 'Philosophy',
+    specialties: 'Specialties',
+    pricing: 'Pricing',
+    contact: 'Contact',
+    book: 'Book',
+  },
+  hero: {
+    subtitle: 'Your sanctuary for beauty and well-being.',
+    button: 'Book your moment',
+  },
+  philosophy: {
+    title: 'Our Philosophy',
+    description: 'Listening and expertise at the heart of everything we do.',
+    cards: {
+      listen: {
+        title: 'Personalized Listening',
+        description: 'A tailored approach to reveal your unique beauty.',
+      },
+      quality: {
+        title: 'Excellence Products',
+        description: 'Formulas selected for performance and care.',
+      },
+      passion: {
+        title: 'Expertise & Passion',
+        description: 'Technical know-how combined with true passion for the craft.',
+      },
+    },
+  },
+  specialties: {
+    title: 'Our Specialties',
+    items: [
+      { iconKey: 'scissors', title: 'Hairdressing' },
+      { iconKey: 'straightener', title: 'Hair Straightening' },
+      { iconKey: 'curly', title: 'Curl Bar' },
+      { iconKey: 'dropper', title: 'Treatment Bar' },
+      { iconKey: 'face', title: 'Aesthetics' },
+      { iconKey: 'nails', title: 'Nail Care' },
+    ],
+  },
+  pricing: {
+    title: 'BLISSFUL & BEAUTIFUL',
+    sections: sharedPricing, // keep the same reference as FR
+  },
+  locations: {
+    title: 'Our Salons',
+    items: [
+      {
+        name: 'Blissful & Beautiful - Inezgane',
+        address: 'Rue Moulay Ali Chérif, Inezgane 86350',
+        phone: '+212 607-736762',
+        mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13778.681177695786!2d-9.5332617!3d30.3601438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdb3c80f48866e4d%3A0x6e268ac37f81498b!2sInezgane!5e0!3m2!1sen!2sma!4v1700000000000!5m2!1sen!2sma',
+        coordinates: { lat: 30.3601, lng: -9.5333 }
+      },
+      {
+        name: 'Blissful & Beautiful - Agadir',
+        address: 'N° 32 Rue Taher Ifrani, Cité Illigh, Agadir',
+        phone: '+212 607-736762',
+        mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13768.95663673523!2d-9.6000000!3d30.4200000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdb3b6e8a0058b8f%3A0x8f7d9d0e2c8a0b0!2sAgadir!5e0!3m2!1sen!2sma!4v1700000000000!5m2!1sen!2sma',
+        coordinates: { lat: 30.4200, lng: -9.6000 }
+      },
+    ],
+  },
+  workHours: {
+    title: 'Opening Hours',
+    days: [
+      { day: 'Monday', hours: '08:00 - 22:00' },
+      { day: 'Tuesday', hours: '08:00 - 22:00' },
+      { day: 'Wednesday', hours: '08:00 - 22:00' },
+      { day: 'Thursday', hours: '08:00 - 22:00' },
+      { day: 'Friday', hours: '09:00 - 22:00' },
+      { day: 'Saturday', hours: '09:00 - 22:00' },
+      { day: 'Sunday', hours: '12:00 - 20:00' },
+    ],
+  },
+  partners: {
+    title: 'Our Trusted Partners',
+    description: 'We work exclusively with the best products to guarantee your satisfaction.',
+    brands: [
+      'Nashi ARGAN', "L'ORÉAL", 'K18', 'INOA',
+      'Inebrya', 'GOLDERY & MORE', 'ANADIA PROFESIONAL',
+      'Evoluderm', 'OLAPLEX', 'BLACK DIAMOND', 'TGB',
+      'Salerm COSMETICS', 'REVLON', 'Phytocéane', 'O·P·I',
+      'INOCOS', 'RP', 'milk_shake', 'TYRREL'
+    ],
+  },
+  testimonials: {
+    title: 'What They Say About Us',
+    items: [
+      { name: 'Sarah K.', review: 'Exceptional service! My curls have never looked so good.', rating: 5 },
+      { name: 'Leila M.', review: 'The ambiance is soothing and the team is very professional.', rating: 5 },
+      { name: 'Noura B.', review: 'I highly recommend the Hydralessence treatment, a real moment of relaxation.', rating: 5 },
+      { name: 'Imane Z.', review: 'Excellent service for my wedding, perfect makeup that lasted all evening.', rating: 5 },
+      { name: 'Samira H.', review: 'The best salon in Agadir! Friendly staff and quality products.', rating: 5 },
+      { name: 'Karima L.', review: 'I love my straightening, my hair is shiny and healthy.', rating: 5 },
+    ],
+  },
+  footer: {
+    copyright: '© 2024 BLISSFUL & BEAUTIFUL. All rights reserved.',
+  },
+};
+
+
 // --- (AR) ---
 const AR_CONTENT: Translation = {
   lang: 'AR',
+  heroTitleAr: 'بليسفول آند بيوتيفول',
+  heroSubtitleAr: 'معهد التجميل',
   nav: {
     home: 'الرئيسية',
     philosophy: 'فلسفتنا',
@@ -655,6 +768,7 @@ const AR_CONTENT: Translation = {
 export const ALL_CONTENT = {
   FR: FR_CONTENT,
   AR: AR_CONTENT,
+  EN: EN_CONTENT,
 };
 
 export type Language = keyof typeof ALL_CONTENT;

@@ -36,7 +36,7 @@ export interface Testimonial {
 }
 
 interface Translation {
-  lang: 'FR' | 'AR';
+  lang: 'FR' | 'AR' | 'EN ';
   nav: {
     home: string;
     philosophy: string;

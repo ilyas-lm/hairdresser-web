@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
     <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm border-b border-taupe/20 z-50 transition-all duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
 
-        {/* Logo & Hamburger */}
+        {/* Logo & Hamburger - SIMPLIFIED FIX */}
         <div className="flex items-center gap-4 order-1">
           <img
             src="/hero_symbol_black.png"
@@ -51,15 +51,6 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
               {lang === 'AR' ? content.heroSubtitleAr : lang === 'FR' ? content.heroSubtitleFr : content.heroSubtitleEn}
             </span>
           </div>
-
-          {/* Hamburger Menu */}
-          <button
-            onClick={toggleMenu}
-            className="lg:hidden text-2xl text-taupe hover:text-taupe-dark transition focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            {isMenuOpen ? <FaTimes /> : <FaBars />}
-          </button>
         </div>
 
         {/* Desktop Navigation */}
@@ -77,8 +68,17 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
           </a>
         </nav>
 
-        {/* Language & Social Links */}
+        {/* Language, Social Links & Hamburger - UPDATED POSITIONING */}
         <div className={`flex items-center gap-4 order-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
+          {/* Hamburger Menu - MOVED HERE */}
+          <button
+            onClick={toggleMenu}
+            className={`lg:hidden text-2xl text-taupe hover:text-taupe-dark transition focus:outline-none ${isArabic ? 'ml-4' : 'mr-4'}`}
+            aria-label="Toggle Menu"
+          >
+            {isMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+
           {/* Desktop Language Buttons */}
           <div className="hidden md:flex gap-2">
             {(['AR', 'FR', 'EN'] as Language[]).map((l) => (
@@ -87,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
                 onClick={() => setLang(l)}
                 className={`px-2 py-1 text-sm font-bold border rounded transition ${lang === l
                   ? 'bg-taupe text-white border-taupe'
-                  : 'bg-white text-charcoal border-gra-300 hover:bg-cream-100 hover:text-taupe'
+                  : 'bg-white text-charcoal border-gray-300 hover:bg-cream-100 hover:text-taupe'
                   }`}
               >
                 {l}
@@ -115,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Keep as before */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -124,8 +124,9 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="lg:hidden bg-white border-t border-taupe/10 overflow-hidden"
+            dir={isArabic ? 'rtl' : 'ltr'}
           >
-            <div className="flex flex-col items-center py-8 space-y-6">
+            <div className={`flex flex-col items-center py-8 space-y-6 ${isArabic ? 'text-right' : 'text-left'}`}>
               {/* Mobile Language Buttons */}
               <div className="flex gap-2 mb-4">
                 {(['AR', 'FR', 'EN'] as Language[]).map((l) => (

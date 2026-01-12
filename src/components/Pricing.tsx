@@ -9,7 +9,6 @@ interface PricingSectionProps {
 const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
   const isArabic = content.lang === 'AR';
 
-
   return (
     <section id="pricing" className="py-20 bg-[var(--menu-bg)]">
       <div className="container mx-auto px-4 max-w-6xl">
@@ -20,7 +19,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className={`text-5xl font-bold font-serif text-[var(--menu-text)] mb-4 uppercase tracking-[0.3em]`}>
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-[var(--menu-text)] mb-4 uppercase tracking-[0.3em]`}>
             {content.pricing.title}
           </h2>
         </motion.div>
@@ -35,7 +34,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                   alt=""
                   className={`h-6 w-auto opacity-100 ${isArabic ? 'ml-2' : 'mr-2'}`}
                 />
-                <h3 className="text-[27px] font-bold font-serif text-[var(--menu-text)] uppercase tracking-[0.15em]">
+                <h3 className="text-2xl md:text-[27px] font-bold font-serif text-[var(--menu-text)] uppercase tracking-[0.15em]">
                   {section.title}
                 </h3>
               </div>
@@ -47,7 +46,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                   <div key={sIdx} className="mb-6 last:mb-0">
                     {/* Level 2 Header (Category) */}
                     {showCategory && (
-                      <h4 className="text-[20px] font-normal font-serif text-[var(--menu-text)] mb-3 mt-5 first:mt-0">
+                      <h4 className="text-lg md:text-[20px] font-normal font-serif text-[var(--menu-text)] mb-3 mt-5 first:mt-0">
                         {sub.category}
                       </h4>
                     )}
@@ -57,45 +56,57 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                       <div className={`mb-2 ${sub.category ? 'mt-3' : 'mt-0'}`}>
                         {/* If title ends with — or contains —, it's a brand name */}
                         {(sub.title.includes('—')) ? (
-                          <div className="flex items-center mb-2">
-                            <h5 className="text-[16px] font-normal font-serif text-[var(--menu-text)] uppercase tracking-wider whitespace-nowrap mr-2">
+                          <div className="flex items-center mb-2 overflow-x-auto scrollbar-hide">
+                            <h5 className="text-sm md:text-[16px] font-normal font-serif text-[var(--menu-text)] uppercase tracking-wider whitespace-nowrap flex-shrink-0">
                               {sub.title}
                             </h5>
-                            <div className="flex-1 border-b border-[var(--menu-text)] h-px"></div>
+                            <div className="flex-1 border-b border-[var(--menu-text)] h-px min-w-[20px]"></div>
                           </div>
                         ) : (
-                          <h4 className="text-[18px] font-semibold font-serif text-[var(--menu-text)] mb-2">
+                          <h4 className="text-base md:text-[18px] font-semibold font-serif text-[var(--menu-text)] mb-2">
                             {sub.title}
                           </h4>
                         )}
                       </div>
                     )}
 
-                    {/* Service Items */}
+                    {/* Service Items - UPDATED FOR MOBILE RESPONSIVENESS */}
                     <ul className="space-y-0.5">
                       {sub.items.map((item, iIndex) => (
-                        <li key={iIndex} className={`${item.isNote ? 'italic text-xs text-gray-500 leading-tight ml-0' : 'flex items-baseline leading-snug'}`}>
-
+                        <li
+                          key={iIndex}
+                          className={`${item.isNote ? 'italic text-xs text-gray-500 leading-tight' : 'flex flex-col sm:flex-row sm:items-baseline leading-snug gap-1 sm:gap-0'}`}
+                        >
                           {item.isNote ? (
                             // Note items (italic, no price)
                             <span className="block">{item.name}</span>
                           ) : (
-                            // Regular service items with dot leaders
+                            // Regular service items with improved mobile layout
                             <>
-                              <span className="font-serif text-[17px] text-[var(--menu-text)] pr-2 flex-shrink-0">
-                                {item.name}
-                              </span>
+                              <div className="flex items-baseline w-full">
+                                <span className="font-serif text-sm sm:text-[17px] text-[var(--menu-text)] pr-2 flex-1 break-words min-w-0">
+                                  {item.name}
+                                </span>
 
+                                {item.price && (
+                                  <>
+                                    {/* Hide dotted line on mobile, show on larger screens */}
+                                    <span className="hidden sm:block flex-1 border-b border-dotted border-gray-400 mx-1 min-w-[20px]"></span>
+                                    <span className="font-serif text-sm sm:text-[17px] font-medium text-[var(--menu-text)] whitespace-nowrap flex-shrink-0 pl-1">
+                                      {item.price}
+                                    </span>
+                                  </>
+                                )}
+                              </div>
+
+                              {/* For mobile: price on new line */}
                               {item.price && (
-                                <>
-                                  <span
-                                    className="flex-1 border-b border-dotted border-gray-400 mb-1 mx-1"
-                                    style={{ minWidth: '20px' }}
-                                  ></span>
-                                  <span className="font-serif text-[17px] font-medium text-[var(--menu-text)] whitespace-nowrap pl-1">
+                                <div className="sm:hidden flex items-center mt-1">
+                                  <span className="flex-1 border-b border-dotted border-gray-400"></span>
+                                  <span className="font-serif text-sm font-medium text-[var(--menu-text)] whitespace-nowrap pl-2 flex-shrink-0">
                                     {item.price}
                                   </span>
-                                </>
+                                </div>
                               )}
                             </>
                           )}

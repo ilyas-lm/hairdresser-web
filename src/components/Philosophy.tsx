@@ -24,11 +24,18 @@ const PhilosophySection: React.FC<PhilosophySectionProps> = ({ content }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          className="flex flex-col items-center"
         >
-          <h2 className={`text - 4xl font - bold mb - 3 text - taupe - dark border - b - 2 border - taupe / 30 inline - block pb - 1 ${isArabic ? 'arabic-font' : 'tracking-wider'} `}>
+          <div className="w-16 h-16 rounded-full bg-cream-100 flex items-center justify-center mb-6 shadow-sm">
+            <FaHeart className="text-2xl text-taupe" />
+          </div>
+
+          <h2 className={`text-4xl font-bold mb-3 text-taupe-dark ${isArabic ? 'arabic-font' : 'tracking-wider'} `}>
             {content.philosophy.title}
           </h2>
-          <p className={`text - xl text - gray - 500 mb - 16 ${isArabic ? 'arabic-font' : ''} `}>
+          <div className="w-24 h-1 bg-taupe/30 mb-8"></div>
+
+          <p className={`text-xl text-gray-500 mb-16 max-w-2xl mx-auto ${isArabic ? 'arabic-font' : ''} `}>
             {content.philosophy.description}
           </p>
         </motion.div>

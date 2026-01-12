@@ -79,13 +79,15 @@ const TestimonialsSection: React.FC<TestimonialsProps> = ({ content }) => {
                     <motion.button
                         layout
                         onClick={toggleShowMore}
-                        className="px-8 py-3 bg-taupe text-white rounded-full font-bold hover:bg-taupe-dark transition-colors duration-300 shadow-md transform hover:-translate-y-1"
+                        className="btn-shimmer px-8 py-3 bg-taupe text-white rounded-full font-bold hover:bg-taupe-dark transition-colors duration-300 shadow-md transform hover:-translate-y-1 relative overflow-hidden"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
-                        {isExpanded
-                            ? (isArabic ? 'عرض أقل' : 'Voir moins')
-                            : (isArabic ? 'عرض المزيد' : 'Voir plus')}
+                        <span className="relative z-10">
+                            {isExpanded
+                                ? (isArabic ? 'عرض أقل' : 'Voir moins')
+                                : (isArabic ? 'عرض المزيد' : 'Voir plus')}
+                        </span>
                     </motion.button>
                 )}
             </div>

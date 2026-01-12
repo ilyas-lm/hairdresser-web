@@ -13,11 +13,48 @@ html {
     scroll-behavior: smooth;
   }
 
+  /* Account for fixed header height in anchor scrolling */
+  section[id],
+  footer[id] {
+    scroll-margin-top: 80px;
+  }
+
   body {
     font-family: "Playfair Display", serif;
   }
 
   .arabic-font {
     font-family: "Tajawal", sans-serif;
+  }
+
+  /* Premium Button Shimmer Base */
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent);
+    transition: 0.5s;
+  }
+
+  .btn-shimmer:hover::before {
+    left: 100%;
+  }
+
+  :root {
+    --menu-bg: #ffffff;
+    --menu-text: #1a1a1a;
+    --menu-accent: #333333;
+    --menu-line: #e5e5e5;
   }
 }

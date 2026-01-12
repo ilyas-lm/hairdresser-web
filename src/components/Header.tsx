@@ -38,8 +38,55 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
     <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm border-b border-taupe/20 z-50 transition-all duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
 
-        {/* Left Side: Language & Social Links (Desktop) */}
-        <div className={`flex items-center gap-4 ${isArabic ? 'flex-row-reverse' : ''}`}>
+        {/* Logo & Hamburger - Always order-1 (left in LTR, right in RTL via dir attribute) */}
+        <div className="flex items-center gap-4 order-1">
+          <img
+            src="/hero_symbol_black.png"
+            alt="Logo"
+            className="h-10 w-auto object-contain drop-shadow-sm"
+          />
+
+          <div className={`hidden sm:block font-serif ${isArabic ? 'text-right' : 'text-left'}`}>
+            <h1 className="text-lg font-bold uppercase tracking-widest text-charcoal leading-tight">
+              BLISSFUL & BEAUTIFUL
+            </h1>
+            <span className="block text-xs font-normal text-taupe uppercase tracking-wider">
+              Institut de beauté
+            </span>
+          </div>
+
+          {/* Hamburger Menu Button */}
+          <button
+            onClick={toggleMenu}
+            className="lg:hidden text-2xl text-taupe hover:text-taupe-dark transition focus:outline-none"
+            aria-label="Toggle Menu"
+          >
+            {isMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
+
+
+        {/* Desktop Navigation - Always order-2 (center) */}
+        <nav className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wider uppercase text-gray-600 order-2">
+          {navLinks.map((link) => (
+            <a
+              key={link.id}
+              href={`#${link.id}`}
+              className="hover:text-taupe transition duration-300"
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="#locations"
+            className="btn-shimmer text-white bg-taupe px-5 py-2 hover:bg-taupe-dark transition duration-300 rounded-sm shadow-sm relative overflow-hidden"
+          >
+            <span className="relative z-10">{content.nav.book}</span>
+          </a>
+        </nav>
+
+        {/* Language & Social Links - Always order-3 (right in LTR, left in RTL via dir attribute) */}
+        <div className={`flex items-center gap-4 order-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
           {/* Language Toggle */}
           <button
             onClick={handleLangToggle}
@@ -66,52 +113,6 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
             })}
           </div>
         </div>
-
-
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wider uppercase text-gray-600">
-          {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className="hover:text-taupe transition duration-300"
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href="#locations"
-            className="text-white bg-taupe px-5 py-2 hover:bg-taupe-dark transition duration-300 rounded-sm shadow-sm"
-          >
-            {content.nav.book}
-          </a>
-        </nav>
-
-        {/* Right Side: Logo & Hamburger */}
-        <div className="flex items-center gap-4">
-          {/* Hamburger Menu Button */}
-          <button
-            onClick={toggleMenu}
-            className="lg:hidden text-2xl text-taupe hover:text-taupe-dark transition focus:outline-none"
-            aria-label="Toggle Menu"
-          >
-            {isMenuOpen ? <FaTimes /> : <FaBars />}
-          </button>
-
-          <div className="text-right hidden sm:block">
-            <h1 className="text-lg font-bold uppercase tracking-widest text-charcoal leading-tight">
-              BLISSFUL & BEAUTIFUL
-            </h1>
-            <span className="block text-xs font-normal text-taupe uppercase tracking-wider">
-              Institut de beauté
-            </span>
-          </div>
-          <img
-            src="/logo_symbol.png"
-            alt="Logo"
-            className="h-10 w-auto object-contain drop-shadow-sm"
-          />
-        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -137,7 +138,19 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
                 <a
                   key={link.id}
                   href={`#${link.id}`}
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // Close menu FIRST for stable scroll target
+                    setIsMenuOpen(false);
+
+                    const target = document.getElementById(link.id);
+                    if (target) {
+                      // Slight delay to allow menu animation to start/layout to settle
+                      setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }, 100);
+                    }
+                  }}
                   className="text-lg font-medium tracking-wide text-charcoal hover:text-taupe transition duration-300 uppercase"
                 >
                   {link.label}
@@ -145,10 +158,20 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
               ))}
               <a
                 href="#locations"
-                onClick={() => setIsMenuOpen(false)}
-                className="text-white bg-taupe px-8 py-3 text-lg hover:bg-taupe-dark transition duration-300 rounded-sm shadow-sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsMenuOpen(false);
+
+                  const target = document.getElementById('locations');
+                  if (target) {
+                    setTimeout(() => {
+                      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 100);
+                  }
+                }}
+                className="btn-shimmer text-white bg-taupe px-8 py-3 text-lg hover:bg-taupe-dark transition duration-300 rounded-sm shadow-sm relative overflow-hidden"
               >
-                {content.nav.book}
+                <span className="relative z-10">{content.nav.book}</span>
               </a>
 
               {/* Mobile Social Links */}

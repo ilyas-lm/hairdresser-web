@@ -23,6 +23,14 @@ export default {
         'serif': ['Playfair Display', 'serif'],
         'arabic-font': ['Tajawal', 'sans-serif'],
       },
+      animation: {
+        shimmer: 'shimmer 2.5s infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        },
+      },
       // You can adjust colors, spacing, etc., here.
     },
   },

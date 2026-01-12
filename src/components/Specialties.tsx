@@ -55,7 +55,7 @@ const SpecialtiesSection: React.FC<SpecialtiesProps> = ({ content }) => {
                             transition={{ duration: 0.4, delay: index * 0.1 }}
                             whileHover={{ y: -5 }}
                         >
-                            <div className="w-20 h-20 rounded-full bg-cream-50 flex items-center justify-center text-3xl text-taupe mb-4 group-hover:bg-taupe group-hover:text-white transition-colors duration-300 shadow-md">
+                            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-cream-50 to-cream-100 flex items-center justify-center text-3xl text-taupe mb-4 group-hover:bg-none group-hover:bg-taupe group-hover:text-white transition-all duration-300 shadow-md">
                                 {getIcon(item.iconKey)}
                             </div>
                             <h3 className={`text-xl font-medium text-gray-700 group-hover:text-taupe-dark transition-colors duration-300 ${isArabic ? 'arabic-font' : ''}`}>

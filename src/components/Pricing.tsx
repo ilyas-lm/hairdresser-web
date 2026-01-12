@@ -11,8 +11,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
 
 
   return (
-    <section id="pricing" className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <section id="pricing" className="py-20 bg-[var(--menu-bg)]">
+      <div className="container mx-auto px-4 max-w-6xl">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -20,50 +20,92 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className={`text-3xl font-bold text-taupe-dark mb-4 ${isArabic ? 'arabic-font' : 'uppercase tracking-widest'}`}>
+          <h2 className={`text-5xl font-bold font-serif text-[var(--menu-text)] mb-4 uppercase tracking-[0.3em]`}>
             {content.pricing.title}
           </h2>
-          <div className="w-16 h-1 bg-taupe/30 mx-auto"></div>
         </motion.div>
 
-        <div className={`columns-1 lg:columns-2 gap-8 space-y-8 ${isArabic ? 'rtl' : 'ltr'}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-16 ${isArabic ? 'rtl' : 'ltr'}`}>
           {content.pricing.sections.map((section, idx) => (
-            <motion.div
-              key={idx}
-              className="break-inside-avoid mb-8 bg-cream-50 p-8 rounded-lg border border-taupe/10 shadow-sm hover:shadow-md transition-shadow duration-300"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-            >
-              <h3 className={`text-2xl font-bold text-taupe mb-6 border-b border-taupe/20 pb-2 ${isArabic ? 'arabic-font' : 'uppercase tracking-wider'}`}>
-                {section.title}
-              </h3>
+            <div key={idx} className="mb-8">
+              {/* Main Section Title with Icon */}
+              <div className={`flex items-center mb-6 ${isArabic ? 'flex-row-reverse' : 'flex-row'}`}>
+                <img
+                  src="/logo_symbol.png"
+                  alt=""
+                  className={`h-6 w-auto opacity-100 ${isArabic ? 'ml-2' : 'mr-2'}`}
+                />
+                <h3 className="text-[27px] font-bold font-serif text-[var(--menu-text)] uppercase tracking-[0.15em]">
+                  {section.title}
+                </h3>
+              </div>
 
-              {section.subsections && section.subsections.map((sub, sIdx) => (
-                <div key={sIdx} className="mb-6 last:mb-0">
-                  <h4 className={`text-lg font-bold text-gray-700 mb-3 ${isArabic ? 'arabic-font' : ''}`}>
-                    {sub.title}
-                  </h4>
-                  {sub.title && sub.title.includes('-') && (
-                    <h5 className={`text-md font-serif italic text-taupe mb-3 -mt-2 ${isArabic ? 'text-right' : 'text-left'}`}>
-                      {sub.title.split('-')[1].trim()}
-                    </h5>
-                  )}
+              {section.subsections && section.subsections.map((sub, sIdx) => {
+                const showCategory = sub.category && (sIdx === 0 || section.subsections[sIdx - 1].category !== sub.category);
 
+                return (
+                  <div key={sIdx} className="mb-6 last:mb-0">
+                    {/* Level 2 Header (Category) */}
+                    {showCategory && (
+                      <h4 className="text-[20px] font-normal font-serif text-[var(--menu-text)] mb-3 mt-5 first:mt-0">
+                        {sub.category}
+                      </h4>
+                    )}
 
-                  <ul className="space-y-3">
-                    {sub.items.map((item, iIndex) => (
-                      <li key={iIndex} className={`flex justify-between items-end text-sm md:text-[0.925rem] text-gray-700 leading-tight ${isArabic ? 'flex-row-reverse arabic-font' : ''}`}>
-                        <span className={`font-medium ${isArabic ? 'ml-2' : 'mr-2'} w-2/3`}>{item.name}</span>
-                        <span className="flex-1 border-b border-dotted border-gray-300 mx-1 mb-1 opacity-50"></span>
-                        <span className="font-bold text-taupe-dark whitespace-nowrap">{item.price}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </motion.div>
+                    {/* Brand Name or Subsection Title */}
+                    {sub.title && (
+                      <div className={`mb-2 ${sub.category ? 'mt-3' : 'mt-0'}`}>
+                        {/* If title ends with — or contains —, it's a brand name */}
+                        {(sub.title.includes('—')) ? (
+                          <div className="flex items-center mb-2">
+                            <h5 className="text-[16px] font-normal font-serif text-[var(--menu-text)] uppercase tracking-wider whitespace-nowrap mr-2">
+                              {sub.title}
+                            </h5>
+                            <div className="flex-1 border-b border-[var(--menu-text)] h-px"></div>
+                          </div>
+                        ) : (
+                          <h4 className="text-[18px] font-semibold font-serif text-[var(--menu-text)] mb-2">
+                            {sub.title}
+                          </h4>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Service Items */}
+                    <ul className="space-y-0.5">
+                      {sub.items.map((item, iIndex) => (
+                        <li key={iIndex} className={`${item.isNote ? 'italic text-xs text-gray-500 leading-tight ml-0' : 'flex items-baseline leading-snug'}`}>
+
+                          {item.isNote ? (
+                            // Note items (italic, no price)
+                            <span className="block">{item.name}</span>
+                          ) : (
+                            // Regular service items with dot leaders
+                            <>
+                              <span className="font-serif text-[17px] text-[var(--menu-text)] pr-2 flex-shrink-0">
+                                {item.name}
+                              </span>
+
+                              {item.price && (
+                                <>
+                                  <span
+                                    className="flex-1 border-b border-dotted border-gray-400 mb-1 mx-1"
+                                    style={{ minWidth: '20px' }}
+                                  ></span>
+                                  <span className="font-serif text-[17px] font-medium text-[var(--menu-text)] whitespace-nowrap pl-1">
+                                    {item.price}
+                                  </span>
+                                </>
+                              )}
+                            </>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
           ))}
         </div>
       </div>

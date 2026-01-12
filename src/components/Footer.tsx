@@ -49,10 +49,15 @@ const Footer: React.FC<FooterProps> = ({ content }) => {
             +212 607-736762
           </a>
         </p>
-        <p className={`flex justify-center items-center text-lg mb-8 ${isArabic ? 'arabic-font flex-row-reverse' : ''}`}>
-          <FaMapMarkerAlt className={`text-xl ${isArabic ? 'ml-2' : 'mr-2'}`} />
-          123, Rue de la Beauté, Casablanca 20000, Maroc
-        </p>
+        <div className={`flex flex-col items-center gap-4 mb-8 text-lg ${isArabic ? 'arabic-font' : ''}`}>
+          {content.locations.items.map((loc, idx) => (
+            <p key={idx} className={`flex items-center ${isArabic ? 'flex-row-reverse' : ''}`}>
+              <FaMapMarkerAlt className={`text-xl text-taupe ${isArabic ? 'ml-2' : 'mr-2'}`} />
+              <span className="font-medium">{loc.name}:</span>
+              <span className="mx-2">{loc.address}</span>
+            </p>
+          ))}
+        </div>
 
         <div className="mt-10 border-t border-gray-700 pt-6">
           <p className="text-sm text-gray-400">

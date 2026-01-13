@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@200;400;700&family=Playfair+Display:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Tajawal:wght@200;400;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -20,7 +20,7 @@ html {
   }
 
   body {
-    font-family: "Playfair Display", serif;
+    font-family: "Cormorant Garamond", serif;
   }
 
   .arabic-font {
@@ -51,10 +51,79 @@ html {
     left: 100%;
   }
 
+  /* For better Arabic text rendering */
+  .arabic-font {
+    font-family: 'Tajawal', 'Arial', sans-serif;
+    line-height: 1.6;
+  }
+
+  /* For better word breaking in addresses */
+  .break-words {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+
+
+  /* Add these classes to your index.css */
+
+  /* Exact font from your image - Cinzel */
+  .exact-brand-font {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    /* Semi-bold for "BLISSFUL & BEAUTIFUL" */
+    letter-spacing: 0.25em;
+    /* Tight letter spacing */
+    text-transform: uppercase;
+  }
+
+  .exact-brand-subtitle {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    /* Regular weight for subtitle */
+    letter-spacing: 0.15em;
+    /* Slightly looser spacing */
+    text-transform: uppercase;
+  }
+
+  /* Optional: If you want even closer match */
+  .exact-cinzel-bold {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    /* Try 700 for bolder look */
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .black-filter {
+    filter: brightness(0) saturate(100%);
+  }
+
+  /* Or for charcoal color */
+  .charcoal-filter {
+    filter: brightness(0) saturate(100%) opacity(0.9);
+  }
+
+  .brand-text-black {
+    filter: brightness(0) saturate(100%);
+  }
+
+  /* Optional: For a charcoal color instead of pure black */
+  .brand-text-charcoal {
+    filter: brightness(0) saturate(100%) opacity(0.9);
+  }
+
+
   :root {
     --menu-bg: #ffffff;
-    --menu-text: #1a1a1a;
+    --menu-text: #000000;
     --menu-accent: #333333;
     --menu-line: #e5e5e5;
+  }
+
+  /* Temporary fix - add this to index.css */
+  #pricing * {
+    color: #000000 !important;
   }
 }

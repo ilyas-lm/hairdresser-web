@@ -33,28 +33,40 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
   return (
     <header className="fixed top-0 w-full bg-white/95 backdrop-blur-md shadow-sm border-b border-taupe/20 z-50 transition-all duration-300">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-
-        {/* Logo & Hamburger - SIMPLIFIED FIX */}
+        {/* Logo & Brand Text */}
         <div className="flex items-center gap-4 order-1">
+          {/* Symbol Logo */}
           <img
             src="/hero_symbol_black.png"
             alt="Logo"
             className="h-10 w-auto object-contain drop-shadow-sm"
           />
 
-          {/* Name & Subtitle next to logo */}
-          <div className={`hidden sm:flex flex-col font-serif ${isArabic ? 'text-right' : 'text-left'}`}>
-            <h1 className="text-lg font-bold uppercase tracking-widest text-charcoal leading-tight">
-              {lang === 'AR' ? content.heroTitleAr : lang === 'FR' ? content.heroTitleFr : content.heroTitleEn}
-            </h1>
-            <span className="block text-xs font-normal text-taupe uppercase tracking-wider">
-              {lang === 'AR' ? content.heroSubtitleAr : lang === 'FR' ? content.heroSubtitleFr : content.heroSubtitleEn}
-            </span>
+          {/* Brand Text - Image for EN/FR, Text for Arabic */}
+          <div className={`hidden sm:block ${isArabic ? 'text-right' : 'text-left'}`}>
+            {isArabic ? (
+              // Arabic text version
+              <div className="flex flex-col">
+                <span className="arabic-font text-xl font-bold text-black">
+                  بليسفل آند بيوتيفول
+                </span>
+                <span className="arabic-font text-sm text-gray-600 mt-1">
+                  معهد الجمال
+                </span>
+              </div>
+            ) : (
+              // English/French image version
+              <img
+                src="/b&b.png"
+                alt="BLISSFUL & BEAUTIFUL"
+                className="brand-text-black h-8 sm:h-10 md:h-11 w-auto object-contain filter brightness-0"
+              />
+            )}
           </div>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wider uppercase text-gray-600 order-2">
+        <nav className={`hidden lg:flex items-center gap-8 font-medium tracking-wider uppercase text-gray-600 order-2 ${isArabic ? 'text-lg' : 'text-base'}`}> {/* Larger text for Arabic */}
           {navLinks.map((link) => (
             <a key={link.id} href={`#${link.id}`} className="hover:text-taupe transition duration-300">
               {link.label}
@@ -62,15 +74,15 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
           ))}
           <a
             href="#locations"
-            className="btn-shimmer text-white bg-taupe px-5 py-2 hover:bg-taupe-dark transition duration-300 rounded-sm shadow-sm relative overflow-hidden"
+            className={`btn-shimmer text-white bg-taupe px-5 py-2 hover:bg-taupe-dark transition duration-300 rounded-sm shadow-sm relative overflow-hidden ${isArabic ? 'text-lg' : 'text-base'}`} // Added larger text for Arabic
           >
             <span className="relative z-10">{content.nav.book}</span>
           </a>
         </nav>
 
-        {/* Language, Social Links & Hamburger - UPDATED POSITIONING */}
+        {/* Language, Social Links & Hamburger */}
         <div className={`flex items-center gap-4 order-3 ${isArabic ? 'flex-row-reverse' : ''}`}>
-          {/* Hamburger Menu - MOVED HERE */}
+          {/* Hamburger Menu */}
           <button
             onClick={toggleMenu}
             className={`lg:hidden text-2xl text-taupe hover:text-taupe-dark transition focus:outline-none ${isArabic ? 'ml-4' : 'mr-4'}`}
@@ -115,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
         </div>
       </div>
 
-      {/* Mobile Menu - Keep as before */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -134,7 +146,7 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
                     key={l}
                     onClick={() => {
                       setLang(l);
-                      setIsMenuOpen(false); // close menu on selection
+                      setIsMenuOpen(false);
                     }}
                     className={`px-3 py-1 text-sm font-bold border rounded transition ${lang === l
                       ? 'bg-taupe text-white border-taupe'
@@ -157,7 +169,7 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
                     const target = document.getElementById(link.id);
                     if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
                   }}
-                  className="text-lg font-medium tracking-wide text-charcoal hover:text-taupe transition duration-300 uppercase"
+                  className={`font-medium tracking-wide text-charcoal hover:text-taupe transition duration-300 uppercase ${isArabic ? 'text-xl arabic-font' : 'text-lg'}`} // Added larger text for Arabic
                 >
                   {link.label}
                 </a>
@@ -172,7 +184,7 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
                   const target = document.getElementById('locations');
                   if (target) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
                 }}
-                className="btn-shimmer text-white bg-taupe px-8 py-3 text-lg hover:bg-taupe-dark transition duration-300 rounded-sm shadow-sm relative overflow-hidden"
+                className={`btn-shimmer text-white bg-taupe px-8 py-3 hover:bg-taupe-dark transition duration-300 rounded-sm shadow-sm relative overflow-hidden ${isArabic ? 'text-xl' : 'text-lg'}`} // Added larger text for Arabic
               >
                 <span className="relative z-10">{content.nav.book}</span>
               </a>

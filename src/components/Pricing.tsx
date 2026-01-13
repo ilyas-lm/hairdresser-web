@@ -19,9 +19,26 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-[var(--menu-text)] mb-4 uppercase tracking-[0.3em]`}>
-            {content.pricing.title}
-          </h2>
+          {/* Main Title Image */}
+          <div className="flex justify-center items-center mb-8">
+            <img
+              src="/b&b.png"
+              alt="Blissful & Beautiful"
+              className="mx-auto max-w-full h-auto filter brightness-0"
+              style={{
+                maxWidth: '500px',
+                width: '100%',
+                height: 'auto'
+              }}
+            />
+          </div>
+
+          {/* Optional subtitle */}
+          {content.pricing.subtitle && (
+            <p className="text-lg font-serif text-black mt-4">
+              {content.pricing.subtitle}
+            </p>
+          )}
         </motion.div>
 
         <div className={`grid grid-cols-1 md:grid-cols-2 gap-16 ${isArabic ? 'rtl' : 'ltr'}`}>
@@ -34,7 +51,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                   alt=""
                   className={`h-6 w-auto opacity-100 ${isArabic ? 'ml-2' : 'mr-2'}`}
                 />
-                <h3 className="text-2xl md:text-[27px] font-bold font-serif text-[var(--menu-text)] uppercase tracking-[0.15em]">
+                <h3 className="text-2xl md:text-[27px] font-bold font-serif text-black uppercase tracking-[0.15em]">
                   {section.title}
                 </h3>
               </div>
@@ -46,7 +63,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                   <div key={sIdx} className="mb-6 last:mb-0">
                     {/* Level 2 Header (Category) */}
                     {showCategory && (
-                      <h4 className="text-lg md:text-[20px] font-normal font-serif text-[var(--menu-text)] mb-3 mt-5 first:mt-0">
+                      <h4 className="text-lg md:text-[20px] font-normal font-serif text-black mb-3 mt-5 first:mt-0">
                         {sub.category}
                       </h4>
                     )}
@@ -57,13 +74,13 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                         {/* If title ends with — or contains —, it's a brand name */}
                         {(sub.title.includes('—')) ? (
                           <div className="flex items-center mb-2 overflow-x-auto scrollbar-hide">
-                            <h5 className="text-sm md:text-[16px] font-normal font-serif text-[var(--menu-text)] uppercase tracking-wider whitespace-nowrap flex-shrink-0">
+                            <h5 className="text-sm md:text-[16px] font-normal font-serif text-black uppercase tracking-wider whitespace-nowrap flex-shrink-0">
                               {sub.title}
                             </h5>
-                            <div className="flex-1 border-b border-[var(--menu-text)] h-px min-w-[20px]"></div>
+                            <div className="flex-1 border-b border-black h-px min-w-[20px]"></div>
                           </div>
                         ) : (
-                          <h4 className="text-base md:text-[18px] font-semibold font-serif text-[var(--menu-text)] mb-2">
+                          <h4 className="text-base md:text-[18px] font-semibold font-serif text-black mb-2">
                             {sub.title}
                           </h4>
                         )}
@@ -75,7 +92,7 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                       {sub.items.map((item, iIndex) => (
                         <li
                           key={iIndex}
-                          className={`${item.isNote ? 'italic text-xs text-gray-500 leading-tight' : 'flex flex-col sm:flex-row sm:items-baseline leading-snug gap-1 sm:gap-0'}`}
+                          className={`${item.isNote ? 'italic text-xs text-gray-600 leading-tight' : 'flex flex-col sm:flex-row sm:items-baseline leading-snug gap-1 sm:gap-0'}`}
                         >
                           {item.isNote ? (
                             // Note items (italic, no price)
@@ -84,15 +101,15 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                             // Regular service items with improved mobile layout
                             <>
                               <div className="flex items-baseline w-full">
-                                <span className="font-serif text-sm sm:text-[17px] text-[var(--menu-text)] pr-2 flex-1 break-words min-w-0">
+                                <span className="font-serif text-sm sm:text-[17px] text-black pr-2 flex-1 break-words min-w-0">
                                   {item.name}
                                 </span>
 
                                 {item.price && (
                                   <>
                                     {/* Hide dotted line on mobile, show on larger screens */}
-                                    <span className="hidden sm:block flex-1 border-b border-dotted border-gray-400 mx-1 min-w-[20px]"></span>
-                                    <span className="font-serif text-sm sm:text-[17px] font-medium text-[var(--menu-text)] whitespace-nowrap flex-shrink-0 pl-1">
+                                    <span className="hidden sm:block flex-1 border-b border-dotted border-gray-600 mx-1 min-w-[20px]"></span>
+                                    <span className="font-serif text-sm sm:text-[17px] font-medium text-black whitespace-nowrap flex-shrink-0 pl-1">
                                       {item.price}
                                     </span>
                                   </>
@@ -102,8 +119,8 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                               {/* For mobile: price on new line */}
                               {item.price && (
                                 <div className="sm:hidden flex items-center mt-1">
-                                  <span className="flex-1 border-b border-dotted border-gray-400"></span>
-                                  <span className="font-serif text-sm font-medium text-[var(--menu-text)] whitespace-nowrap pl-2 flex-shrink-0">
+                                  <span className="flex-1 border-b border-dotted border-gray-600"></span>
+                                  <span className="font-serif text-sm font-medium text-black whitespace-nowrap pl-2 flex-shrink-0">
                                     {item.price}
                                   </span>
                                 </div>

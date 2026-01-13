@@ -16,11 +16,9 @@ export default {
         },
         charcoal: '#2D2825',
       },
-      // You can define custom fonts here if you don't use the CSS import method
       fontFamily: {
-        'sans': ['ui-sans-serif', 'system-ui', /* default fallback */],
-        // Example if using Playfair Display for default and Tajawal for Arabic:
-        'serif': ['Playfair Display', 'serif'],
+        'sans': ['ui-sans-serif', 'system-ui'],
+        'serif': ['Playfair Display', 'serif'], // Keep as Playfair Display
         'arabic-font': ['Tajawal', 'sans-serif'],
       },
       animation: {
@@ -31,7 +29,6 @@ export default {
           '100%': { transform: 'translateX(100%)' },
         },
       },
-      // You can adjust colors, spacing, etc., here.
     },
   },
   plugins: [],

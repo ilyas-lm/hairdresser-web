@@ -37,6 +37,12 @@ export interface Testimonial {
 
 interface Translation {
   lang: 'FR' | 'AR' | 'EN ';
+  heroTitleFr?: string;
+  heroSubtitleFr?: string;
+  heroTitleEn?: string;
+  heroSubtitleEn?: string;
+  heroTitleAr?: string;
+  heroSubtitleAr?: string;
   nav: {
     home: string;
     philosophy: string;

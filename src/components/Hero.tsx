@@ -48,7 +48,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ content }) => {
                 {content.heroTitleAr || "بليسفول آند بيوتيفول"}
               </h1>
               <p className="exact-brand-subtitle text-xl md:text-2xl text-gray-600">
-                {content.heroSubtitleAr || "معهد التجميل"}
+                {content.heroSubtitleAr || "مركز التجميل"}
               </p>
             </div>
           ) : (

@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ content, lang, setLang }) => {
                   بليسفل آند بيوتيفول
                 </span>
                 <span className="arabic-font text-sm text-gray-600 mt-1">
-                  معهد الجمال
+                  مركز الجمال
                 </span>
               </div>
             ) : (

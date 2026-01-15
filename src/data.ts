@@ -1,4 +1,3 @@
-
 export type IconKey = 'scissors' | 'straightener' | 'curly' | 'dropper' | 'face' | 'nails';
 
 interface SocialLink {
@@ -9,14 +8,14 @@ interface SocialLink {
 interface PricingItem {
   name: string;
   price: string;
-  isNote?: boolean; // For items that are descriptions/notes without prices
+  isNote?: boolean;
 }
 
 interface PricingSubsection {
-  category?: string; // Level 2 Header
-  title?: string;    // Level 3 Header (or Level 2 if category missing)       
+  category?: string;
+  title?: string;
   items: PricingItem[];
-  variant?: 'default' | 'highlight'; // For grey background sections
+  variant?: 'default' | 'highlight';
 }
 
 interface PricingSection {
@@ -32,11 +31,11 @@ interface Specialty {
 export interface Testimonial {
   name: string;
   review: string;
-  rating?: number; // 1-5 stars
+  rating?: number;
 }
 
 interface Translation {
-  lang: 'FR' | 'AR' | 'EN ';
+  lang: 'FR' | 'AR' | 'EN'; // FIXED: Removed space after 'EN'
   heroTitleFr?: string;
   heroSubtitleFr?: string;
   heroTitleEn?: string;
@@ -139,12 +138,9 @@ const sharedPricing: PricingSection[] = [
           { name: 'Pointes', price: '20 Dh' },
           { name: 'Coupe', price: '50 Dh' },
           { name: 'Coupe transformation', price: '150 Dh' },
-          { name: 'Shampoing coupe brushing', price: '80 Dh' },
-          { name: '"cheveux court"', price: '', isNote: true },
-          { name: 'Shampoing coupe brushing', price: '90 Dh' },
-          { name: '"cheveux long"', price: '', isNote: true },
-          { name: 'Shampoing coupe brushing', price: '99 Dh' },
-          { name: '"cheveux extra long"', price: '', isNote: true },
+          { name: 'Shampoing coupe brushing "cheveux court"', price: '80 Dh' },
+          { name: 'Shampoing coupe brushing "cheveux long"', price: '90 Dh' },
+          { name: 'Shampoing coupe brushing "cheveux extra long"', price: '99 Dh' },
           { name: 'Coupe jeunesse-14 ans', price: '30 Dh' },
         ],
       },
@@ -169,7 +165,7 @@ const sharedPricing: PricingSection[] = [
         items: [
           { name: 'Rinçage', price: '150 Dh' },
           { name: 'Balayage Produit basique', price: '170 Dh' },
-          { name: 'Balayage L\'Oreal,Shwarzkopf', price: '300 à 500 Dh' },
+          { name: 'Balayage L\'Oreal, Shwarzkopf', price: '300 à 500 Dh' },
           { name: 'Décoloration', price: '300 à 500 Dh' },
           { name: 'Patine', price: '300 à 400 Dh' },
           { name: 'Ombré hair', price: '500 à 1000 Dh' },
@@ -219,9 +215,9 @@ const sharedPricing: PricingSection[] = [
           { name: 'L\'hydratant', price: '150 à 200 Dh' },
           { name: '"cheveux légèrement secs"', price: '', isNote: true },
           { name: 'Le réparateur', price: '350 à 400 Dh' },
-          { name: '"cheveux élastiques,cassants"', price: '', isNote: true },
+          { name: '"cheveux élastiques, cassants"', price: '', isNote: true },
           { name: 'Le complet', price: '400 à 500 Dh' },
-          { name: '"cheveux élastiques,cassants et déshydratés"', price: '', isNote: true },
+          { name: '"cheveux élastiques, cassants et déshydratés"', price: '', isNote: true },
         ],
       },
       {
@@ -233,7 +229,7 @@ const sharedPricing: PricingSection[] = [
       },
       {
         category: 'Le bar à soin',
-        title: 'BLISS OIL "naturel"—',
+        title: 'BLISS OIL "naturel" —',
         items: [
           { name: 'L\'Anti-chute', price: '70 à 120 Dh' },
           { name: 'Le Miracle', price: '99 à 200 Dh' },
@@ -285,20 +281,17 @@ const sharedPricing: PricingSection[] = [
         title: 'EVOLUDERM',
         items: [
           { name: 'Le grand classique', price: '99 Dh' },
-          { name: 'Soin basique avec extraction des comédons (60min) Tous', price: '', isNote: true },
-          { name: 'types de peaux', price: '', isNote: true },
+          { name: 'Soin basique avec extraction des comédons (60min) Tous types de peaux', price: '', isNote: true },
           { name: 'Teenager', price: '150 Dh' },
-          { name: 'Soin purifiant (60min) Peaux mixtes à grasses', price: '', isNote: true },
+          { name: 'Soin purifiant (50min) Peaux mixtes à grasses', price: '', isNote: true },
           { name: 'Soin adapté aux peaux jeunes des préadolescentes et adolescentes', price: '', isNote: true },
           { name: 'Hydralessence visage', price: '150 Dh' },
           { name: 'Soin d\'hydratation intense (60min) Peaux déshydratées et/ou sèches', price: '', isNote: true },
-          { name: 'La souplesse et la douceur de la peau sont restaurées durablement', price: '', isNote: true },
-          { name: 'et la sensation de tiraillements diminue', price: '', isNote: true },
+          { name: 'La souplesse et la douceur de la peau sont restaurées durablement et la sensation de tiraillements diminue', price: '', isNote: true },
           { name: 'Éclat abricot', price: '250 Dh' },
           { name: 'Soin lissant éclat la peau hydratée et son éclat naturel ravive (60min)', price: '', isNote: true },
           { name: 'Tous types de peaux', price: '', isNote: true },
-          { name: 'Apporte à votre peau pureté et fraîcheur soin traitant éclaircissant', price: '', isNote: true },
-          { name: 'et relaxant', price: '', isNote: true },
+          { name: 'Apporte à votre peau pureté et fraîcheur soin traitant éclaircissant et relaxant', price: '', isNote: true },
         ],
       },
       {
@@ -312,14 +305,13 @@ const sharedPricing: PricingSection[] = [
           { name: 'Sublime éclat', price: '300 Dh' },
           { name: 'Soin nettoyant profond (60min) Toutes les peaux', price: '', isNote: true },
           { name: 'Voile pureté', price: '350 Dh' },
-          { name: 'Soin purifiant (60 min) Peaux mixtes,grasses à problème et', price: '', isNote: true },
-          { name: 'asphyxiées', price: '', isNote: true },
+          { name: 'Soin purifiant (80min) Peaux mixtes, grasses à problème et asphyxiées', price: '', isNote: true },
           { name: 'Embrun désaltérant', price: '400 Dh' },
           { name: 'Soin hydratant (60min) Peaux déshydratées et/ou sèches', price: '', isNote: true },
           { name: 'Douceur oceane', price: '400 Dh' },
           { name: 'Soin apaisant (60min) Peaux sensibles et rougeurs diffuses', price: '', isNote: true },
           { name: 'Evasion jeunesse', price: '500 Dh' },
-          { name: 'Soin ride,fermeté et éclat (1h30)', price: '', isNote: true },
+          { name: 'Soin ride, fermeté et éclat (1h30)', price: '', isNote: true },
           { name: 'Aquasaphir', price: '550 Dh' },
           { name: 'Soin jeunesse absolue à l\'acide hyaluronique', price: '', isNote: true },
         ],
@@ -353,7 +345,7 @@ const sharedPricing: PricingSection[] = [
           { name: 'Jambes entières', price: '90 Dh' },
           { name: 'Dos complet', price: '80 Dh' },
           { name: 'Epilation complète', price: '180 Dh' },
-          { name: '( jambes completes, bras, maillot intégral et aiselles )', price: '', isNote: true },
+          { name: '(jambes complètes, bras, maillot intégral et aisselles)', price: '', isNote: true },
         ],
       },
     ],
@@ -363,7 +355,7 @@ const sharedPricing: PricingSection[] = [
     title: 'LE BAR',
     subsections: [
       {
-        title: 'Le bar à regard',
+        title: 'Le bar à regard', // ADDED MISSING SECTION
         items: [
           { name: 'Traçage sourcils', price: '10 Dh' },
           { name: 'Sourcils', price: '20 Dh' },
@@ -390,7 +382,7 @@ const sharedPricing: PricingSection[] = [
           { name: 'BIAB the gel bottle', price: '190 Dh' },
           { name: 'Capsules semi-permanent', price: '80 Dh' },
           { name: 'Capsules semi-permanent avec VSP', price: '130 Dh' },
-          { name: 'GelX Americain', price: '200 Dh' },
+          { name: 'GelX Américain', price: '200 Dh' },
           { name: 'Gel avec VSP', price: '250 Dh' },
           { name: 'Remplissage', price: '200 Dh' },
           { name: 'Dépose VSP', price: '30 Dh' },
@@ -465,19 +457,19 @@ const FR_CONTENT: Translation = {
   },
   philosophy: {
     title: 'Notre Philosophie',
-    description: 'L’écoute et l’expertise au cœur de tout ce que nous faisons.',
+    description: 'L\'écoute et l\'expertise au cœur de tout ce que nous faisons.',
     cards: {
       listen: {
         title: 'Écoute Personnalisée',
-        description: "Une approche sur mesure pour révéler votre beauté unique.",
+        description: 'Une approche sur mesure pour révéler votre beauté unique.',
       },
       quality: {
         title: 'Produits d\'Excellence',
-        description: "Des formules sélectionnées pour leur performance et leur respect.",
+        description: 'Des formules sélectionnées pour leur performance et leur respect.',
       },
       passion: {
         title: 'Expertise & Passion',
-        description: "Un savoir-faire technique allié à une véritable passion du métier.",
+        description: 'Un savoir-faire technique allié à une véritable passion du métier.',
       },
     },
   },
@@ -554,7 +546,7 @@ const FR_CONTENT: Translation = {
   },
 };
 
-// ---(EG) ---
+// ---(EN) ---
 export const EN_CONTENT: Translation = {
   lang: 'EN',
   heroTitleEn: 'BLISSFUL & BEAUTIFUL',
@@ -602,7 +594,7 @@ export const EN_CONTENT: Translation = {
   },
   pricing: {
     title: 'BLISSFUL & BEAUTIFUL',
-    sections: sharedPricing, // keep the same reference as FR
+    sections: sharedPricing,
   },
   locations: {
     title: 'Our Salons',
@@ -639,7 +631,7 @@ export const EN_CONTENT: Translation = {
     title: 'Our Trusted Partners',
     description: 'We work exclusively with the best products to guarantee your satisfaction.',
     brands: [
-      'Nashi ARGAN', "L'ORÉAL", 'K18', 'INOA',
+      'Nashi ARGAN', 'L\'ORÉAL', 'K18', 'INOA',
       'Inebrya', 'GOLDERY & MORE', 'ANADIA PROFESIONAL',
       'Evoluderm', 'OLAPLEX', 'BLACK DIAMOND', 'TGB',
       'Salerm COSMETICS', 'REVLON', 'Phytocéane', 'O·P·I',
@@ -662,12 +654,11 @@ export const EN_CONTENT: Translation = {
   },
 };
 
-
 // --- (AR) ---
 const AR_CONTENT: Translation = {
   lang: 'AR',
   heroTitleAr: 'بليسفول آند بيوتيفول',
-  heroSubtitleAr: 'معهد التجميل',
+  heroSubtitleAr: 'مركز التجميل',
   nav: {
     home: 'الرئيسية',
     philosophy: 'فلسفتنا',
@@ -760,14 +751,14 @@ const AR_CONTENT: Translation = {
     items: [
       { name: 'سارة ك.', review: 'خدمة استثنائية! لم تكن تجعيدات شعري أجمل من أي وقت مضى.', rating: 5 },
       { name: 'ليلى م.', review: 'الجو مريح والفريق محترف للغاية.', rating: 5 },
-      { name: 'نورة ب.', review: 'Je recommande vivement le soin Hydralessence, un vrai moment de détente.', rating: 5 },
+      { name: 'نورة ب.', review: 'أنصح بشدة بعلاج الهيدراليسانس، لحظة استرخاء حقيقية.', rating: 5 }, // Fixed Arabic review
       { name: 'إيمان ز.', review: 'خدمة ممتازة لزفافي، مكياج مثالي استمر طوال السهرة.', rating: 5 },
       { name: 'سميرة ح.', review: 'أفضل صالون في أكادير! طاقم رائع ومنتجات عالية الجودة.', rating: 5 },
       { name: 'كريمة ل.', review: 'أعشق تمليس شعري، شعري أصبح لامعاً وبصحة جيدة.', rating: 5 },
     ],
   },
   footer: {
-    copyright: '© 2024 BLISSFUL & BEAUTIFUL. Tous droits réservés.',
+    copyright: '© 2024 BLISSFUL & BEAUTIFUL. جميع الحقوق محفوظة.',
   },
 };
 

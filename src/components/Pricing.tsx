@@ -10,17 +10,17 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
   const isArabic = content.lang === 'AR';
 
   return (
-    <section id="pricing" className="py-20 bg-[var(--menu-bg)]">
+    <section id="pricing" className="py-16 md:py-20 bg-[var(--menu-bg)]">
       <div className="container mx-auto px-4 max-w-6xl">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           {/* Main Title Image */}
-          <div className="flex justify-center items-center mb-8">
+          <div className="flex justify-center items-center mb-6 md:mb-8">
             <img
               src="/b&b.png"
               alt="Blissful & Beautiful"
@@ -35,23 +35,30 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
 
           {/* Optional subtitle */}
           {content.pricing.subtitle && (
-            <p className="text-lg font-serif text-black mt-4">
+            <p className="text-base md:text-lg font-serif text-gray-700 mt-4">
               {content.pricing.subtitle}
             </p>
           )}
         </motion.div>
 
-        <div className={`grid grid-cols-1 md:grid-cols-2 gap-16 ${isArabic ? 'rtl' : 'ltr'}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 ${isArabic ? 'rtl' : 'ltr'}`}>
           {content.pricing.sections.map((section, idx) => (
-            <div key={idx} className="mb-8">
+            <motion.div
+              key={idx}
+              className="mb-8 md:mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: idx * 0.1 }}
+            >
               {/* Main Section Title with Icon */}
               <div className={`flex items-center mb-6 ${isArabic ? 'flex-row-reverse' : 'flex-row'}`}>
                 <img
                   src="/logo_symbol.png"
                   alt=""
-                  className={`h-6 w-auto opacity-100 ${isArabic ? 'ml-2' : 'mr-2'}`}
+                  className={`h-5 md:h-6 w-auto opacity-80 ${isArabic ? 'ml-2 md:ml-3' : 'mr-2 md:mr-3'}`}
                 />
-                <h3 className="text-2xl md:text-[27px] font-bold font-serif text-black uppercase tracking-[0.15em]">
+                <h3 className="text-xl md:text-2xl font-bold font-serif text-charcoal uppercase tracking-[0.15em]">
                   {section.title}
                 </h3>
               </div>
@@ -60,72 +67,67 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                 const showCategory = sub.category && (sIdx === 0 || section.subsections[sIdx - 1].category !== sub.category);
 
                 return (
-                  <div key={sIdx} className="mb-6 last:mb-0">
+                  <div key={sIdx} className="mb-8 last:mb-0">
                     {/* Level 2 Header (Category) */}
                     {showCategory && (
-                      <h4 className="text-lg md:text-[20px] font-normal font-serif text-black mb-3 mt-5 first:mt-0">
+                      <h4 className="text-base md:text-lg font-medium font-serif text-gray-800 mb-4 mt-6 first:mt-0 pb-2 border-b border-gray-200">
                         {sub.category}
                       </h4>
                     )}
 
                     {/* Brand Name or Subsection Title */}
                     {sub.title && (
-                      <div className={`mb-2 ${sub.category ? 'mt-3' : 'mt-0'}`}>
-                        {/* If title ends with — or contains —, it's a brand name */}
+                      <div className={`mb-3 ${sub.category ? 'mt-4' : 'mt-0'}`}>
                         {(sub.title.includes('—')) ? (
-                          <div className="flex items-center mb-2 overflow-x-auto scrollbar-hide">
-                            <h5 className="text-sm md:text-[16px] font-normal font-serif text-black uppercase tracking-wider whitespace-nowrap flex-shrink-0">
+                          <div className="flex items-center mb-2">
+                            <h5 className="text-sm md:text-base font-semibold font-serif text-gray-800 uppercase tracking-wider whitespace-nowrap">
                               {sub.title}
                             </h5>
-                            <div className="flex-1 border-b border-black h-px min-w-[20px]"></div>
+                            <div className="flex-1 border-b border-gray-400 h-px ml-2 md:ml-3"></div>
                           </div>
-                        ) : (
-                          <h4 className="text-base md:text-[18px] font-semibold font-serif text-black mb-2">
+                        ) : sub.title ? (
+                          <h4 className="text-base md:text-lg font-semibold font-serif text-gray-800 mb-3">
                             {sub.title}
                           </h4>
-                        )}
+                        ) : null}
                       </div>
                     )}
 
-                    {/* Service Items - UPDATED FOR MOBILE RESPONSIVENESS */}
-                    <ul className="space-y-0.5">
+                    {/* Service Items - PERFECT DOTTED LINE LAYOUT */}
+                    <ul className="space-y-1.5">
                       {sub.items.map((item, iIndex) => (
                         <li
                           key={iIndex}
-                          className={`${item.isNote ? 'italic text-xs text-gray-600 leading-tight' : 'flex flex-col sm:flex-row sm:items-baseline leading-snug gap-1 sm:gap-0'}`}
+                          className={`${item.isNote ? 'italic text-xs md:text-sm text-gray-600 leading-tight mt-1 pl-3' : ''}`}
                         >
                           {item.isNote ? (
                             // Note items (italic, no price)
-                            <span className="block">{item.name}</span>
+                            <span className="block text-gray-500">
+                              {item.name}
+                            </span>
                           ) : (
-                            // Regular service items with improved mobile layout
-                            <>
-                              <div className="flex items-baseline w-full">
-                                <span className="font-serif text-sm sm:text-[17px] text-black pr-2 flex-1 break-words min-w-0">
+                            // Regular service items - PERFECT LAYOUT LIKE SCREENSHOT
+                            <div className="flex items-baseline justify-between group hover:bg-gray-50/30 px-1 py-1.5 rounded transition-colors duration-150">
+                              {/* Service name with optional dotted line */}
+                              <div className="flex-1 min-w-0">
+                                <span className="font-serif text-sm md:text-[15px] text-gray-900 leading-relaxed pr-1">
                                   {item.name}
                                 </span>
-
-                                {item.price && (
-                                  <>
-                                    {/* Hide dotted line on mobile, show on larger screens */}
-                                    <span className="hidden sm:block flex-1 border-b border-dotted border-gray-600 mx-1 min-w-[20px]"></span>
-                                    <span className="font-serif text-sm sm:text-[17px] font-medium text-black whitespace-nowrap flex-shrink-0 pl-1">
-                                      {item.price}
-                                    </span>
-                                  </>
-                                )}
                               </div>
 
-                              {/* For mobile: price on new line */}
+                              {/* Price with dotted line separator */}
                               {item.price && (
-                                <div className="sm:hidden flex items-center mt-1">
-                                  <span className="flex-1 border-b border-dotted border-gray-600"></span>
-                                  <span className="font-serif text-sm font-medium text-black whitespace-nowrap pl-2 flex-shrink-0">
+                                <div className="flex items-baseline min-w-[fit-content]">
+                                  {/* Flexible dotted line that fills available space */}
+                                  <div className="hidden sm:block flex-1 min-w-[10px] max-w-[100px] mx-2">
+                                    <div className="border-b border-dotted border-gray-400 mt-[0.4em]"></div>
+                                  </div>
+                                  <span className="font-serif text-sm md:text-[15px] font-bold text-[#8C7B6C] whitespace-nowrap">
                                     {item.price}
                                   </span>
                                 </div>
                               )}
-                            </>
+                            </div>
                           )}
                         </li>
                       ))}
@@ -133,11 +135,27 @@ const PricingSection: React.FC<PricingSectionProps> = ({ content }) => {
                   </div>
                 );
               })}
-            </div>
+            </motion.div>
           ))}
         </div>
+
+        {/* Booking CTA */}
+        {/*<motion.div
+          className="mt-12 md:mt-16 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <button className="bg-[#8C7B6C] hover:bg-[#6B5D52] text-white font-serif px-8 py-3 md:px-10 md:py-4 rounded-full text-base md:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+            {content.nav.book}
+          </button>
+          <p className="text-gray-600 text-sm md:text-base mt-3">
+            {isArabic ? 'للاستفسار أو الحجز' : 'Pour toute question ou réservation'}
+          </p>
+      </motion.div>*/}
       </div>
-    </section>
+    </section >
   );
 };
 

@@ -11,6 +11,9 @@ html {
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-size-adjust: 100%;
   }
 
   /* Account for fixed header height in anchor scrolling */
@@ -62,9 +65,8 @@ html {
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
+    hyphens: auto;
   }
-
-
 
   /* Add these classes to your index.css */
 
@@ -114,16 +116,109 @@ html {
     filter: brightness(0) saturate(100%) opacity(0.9);
   }
 
-
   :root {
     --menu-bg: #ffffff;
     --menu-text: #000000;
     --menu-accent: #333333;
     --menu-line: #e5e5e5;
+    --cream-50: #FDFBF7;
+    --cream-100: #F5F5F0;
+    --taupe: #8C7B6C;
+    --taupe-dark: #6B5D52;
+    --charcoal: #2D2825;
   }
 
   /* Temporary fix - add this to index.css */
   #pricing * {
     color: #000000 !important;
+  }
+}
+
+@layer components {
+
+  /* Pricing section specific styles */
+  .pricing-card {
+    background: linear-gradient(145deg, #ffffff, #f8f8f8);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .price-tag {
+    background: linear-gradient(135deg, #8C7B6C 0%, #6B5D52 100%);
+    color: white;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+  }
+
+  /* Custom scrollbar for pricing section */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .price-dotted-line {
+    flex: 1 1 auto;
+    min-width: 10px;
+    max-width: 100px;
+    margin: 0 8px;
+    border-bottom: 1px dotted #9CA3AF;
+    align-self: center;
+  }
+
+  /* RTL specific adjustments */
+  .rtl .price-dotted-line {
+    margin-left: 0;
+    margin-right: 0.5rem;
+  }
+
+  /* Mobile optimization */
+  @media (max-width: 640px) {
+    .mobile-optimized-text {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+
+    .pricing-item-mobile {
+      padding: 0.5rem 0.25rem;
+    }
+  }
+
+  /* For mobile: hide dotted lines */
+  @media (max-width: 640px) {
+    .price-dotted-line {
+      display: none;
+    }
+  }
+}
+
+@layer utilities {
+
+  /* Hyphenation for better mobile text wrapping */
+  .hyphens-auto {
+    hyphens: auto;
+  }
+
+  .hyphens-none {
+    hyphens: none;
+  }
+
+  .hyphens-manual {
+    hyphens: manual;
+  }
+
+  /* Better touch targets for mobile */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
